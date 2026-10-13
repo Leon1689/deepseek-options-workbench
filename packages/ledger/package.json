@@ -1,0 +1,38 @@
+{
+  "name": "@local/options-ledger-dashboard",
+  "version": "1.2.2",
+  "description": "期权账本：持仓、权利金、成本与聊天工具",
+  "type": "module",
+  "exports": {
+    ".": "./integration.js",
+    "./host": "./integration.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json",
+    "./agent": "./agent.js"
+  },
+  "files": [
+    "integration.js",
+    "ledger.js",
+    "client.js",
+    "cordis.patch.yml",
+    "README.md",
+    "agent.js"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}

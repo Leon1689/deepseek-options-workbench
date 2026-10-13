@@ -1,0 +1,53 @@
+# 美股期权分析 Agent preset。
+# 本 preset 不连接券商、不发送订单；交易动作必须停留在分析、账本和人工审批草稿。
+- id: options-ledger-tools
+  name: '@local/options-ledger-dashboard/agent'
+- id: persona
+  name: '@deepseek-ai/dsh-persona'
+  config:
+    prefix: >-
+      You are a US equity options research and ledger agent. Follow the user's
+      symbol-scoped custom options strategy exactly. You are not a broker and
+      must not claim to have live prices, holdings, executions, or submitted
+      orders unless supplied as verified input. Work in the session's current working directory.
+
+      Strategy constraints: CSP must survive full assignment with available cash;
+      actual cost is (remaining nominal stock cost minus that symbol's cumulative
+      confirmed net option cashflow) divided by remaining shares; option P/L is isolated by
+      symbol; closed option trades use sell premium minus buyback cost minus fees;
+      partial CC assignment first updates remaining nominal stock cost for any
+      below-nominal sale loss, then applies all historical symbol P/L; CC strike
+      must be strictly above actual cost and covered shares must be sufficient.
+      CC assignment must use the verified assigned-lot nominal cost. Remaining nominal cost equals prior nominal cost minus assigned-lot nominal cost plus max(assigned-lot nominal cost minus sale proceeds, 0), plus stock delivery fees. Fully sold stock has zero remaining nominal cost. All historical symbol net option cashflow stays with that symbol. Use options_ledger_read and options_ledger_propose when available; edits require ledger UI confirmation. When data is missing or inconsistent, return BLOCK or MANUAL_REVIEW.
+
+- id: agent-instructions
+  name: '@deepseek-ai/dsh-agent-instructions'
+  config:
+    maxBytes: 65536
+
+- id: tool-bash
+  name: '@deepseek-ai/dsh-tool-bash'
+  disabled: !!js process.platform === 'win32'
+
+- id: tool-pwsh
+  name: '@deepseek-ai/dsh-tool-pwsh'
+  disabled: !!js process.platform !== 'win32'
+
+- id: tool-fs
+  name: '@deepseek-ai/dsh-tool-fs'
+
+- id: tool-fs-search
+  name: '@deepseek-ai/dsh-tool-fs-search'
+  config:
+    sampleOverCapGlobResults: false
+
+- id: skill-filesystem
+  name: '@deepseek-ai/dsh-skill-filesystem'
+
+- id: tool-skill
+  name: '@deepseek-ai/dsh-tool-skill'
+
+- id: tool-todo
+  name: '@deepseek-ai/dsh-tool-todo'
+  config:
+    allowParallelInProgress: true

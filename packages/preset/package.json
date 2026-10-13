@@ -1,0 +1,23 @@
+{
+  "name": "@local/options-trading-agent-preset",
+  "version": "1.2.2",
+  "private": true,
+  "description": "美股期权模式 agent-preset bundle for DeepSeek Harness 0.2.1-alpha.2",
+  "files": [
+    "cordis.patch.yml",
+    "preset.yml",
+    "agent.cordis.yml",
+    "option-ledger-core.js",
+    "option-ledger-workflow.js",
+    "option-ledger.html",
+    "wheel-strategy-spec-v1.md",
+    "README.zh.md",
+    "wheel-strategy-spec-v2.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "type": "module"
+}

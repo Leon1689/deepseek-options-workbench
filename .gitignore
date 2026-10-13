@@ -1,0 +1,16 @@
+node_modules/
+dist/
+*.tgz
+*.sqlite*
+*.db*
+.env
+.env.*
+!.env.example
+*credentials*
+*token*
+*server.log
+DSH_HOME/
+data/
+backups/
+verification.local.json
+.DS_Store

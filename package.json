@@ -1,0 +1,12 @@
+{
+  "name": "deepseek-options-workbench",
+  "version": "1.2.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test packages/ledger/test/*.test.js",
+    "check": "node --check packages/ledger/client.js && node --check packages/ledger/integration.js && node --check packages/ledger/agent.js",
+    "pack": "node scripts/pack.mjs",
+    "install:harness": "node scripts/install.mjs"
+  }
+}
